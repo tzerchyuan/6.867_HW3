@@ -1,0 +1,35 @@
+stride size = 1 , pool size =  2 , validation_acc =  0.609
+Finished training. Total time taken: 38.78
+stride size =  1 , pool size =  3 , validation_acc =  0.666
+Finished training. Total time taken: 50.01
+stride size =  1 , pool size =  4 , validation_acc =  0.666
+Finished training. Total time taken: 51.17
+stride size =  1 , pool size =  5 , validation_acc =  0.678
+Finished training. Total time taken: 51.23
+______________________________________________________
+stride size =  2 , pool size =  2 , validation_acc =  0.666
+Finished training. Total time taken: 43.07
+stride size =  2 , pool size =  3 , validation_acc =  0.609
+Finished training. Total time taken: 40.71
+stride size =  2 , pool size =  4 , validation_acc =  0.712
+Finished training. Total time taken: 38.58
+stride size =  2 , pool size =  5 , validation_acc =  0.666
+Finished training. Total time taken: 40.05
+_____________________________________________________
+stride size =  3 , pool size =  2 , validation_acc =  0.701
+Finished training. Total time taken: 37.45
+stride size =  3 , pool size =  3 , validation_acc =  0.643
+Finished training. Total time taken: 36.10
+stride size =  3 , pool size =  4 , validation_acc =  0.655
+Finished training. Total time taken: 33.00
+stride size =  3 , pool size =  5 , validation_acc =  0.735 *
+Finished training. Total time taken: 38.08
+______________________________________________________
+stride size =  4 , pool size =  2 , validation_acc =  0.678
+Finished training. Total time taken: 27.67
+stride size =  4 , pool size =  3 , validation_acc =  0.666
+Finished training. Total time taken: 28.87
+stride size =  4 , pool size =  4 , validation_acc =  0.701
+Finished training. Total time taken: 29.31
+stride size =  4 , pool size =  5 , validation_acc =  0.678
+Finished training. Total time taken: 31.99

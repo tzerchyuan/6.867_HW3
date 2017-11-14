@@ -11,30 +11,36 @@ import matplotlib.pyplot as plt
 
 DATA_PATH = 'art_data/'
 DATA_FILE = DATA_PATH + 'art_data.pickle'
+# DATA_FILE = DATA_PATH + 'augmented_art_data.pickle'
 IMAGE_SIZE = 50
 NUM_CHANNELS = 3
 NUM_LABELS = 11
 INCLUDE_TEST_SET = False
 
-POOL1SIZE = 4
+POOL1SIZE = 3
 STRIDE1SIZE = 1
 
-POOL2SIZE = 4
-STRIDE2SIZE = 3
+POOL2SIZE = 3
+STRIDE2SIZE = 1
+
+POOL3SIZE = 2
+STRIDE3SIZE = 1
+
+POOL4SIZE = 2
+STRIDE4SIZE = 1
 
 BATCH_SIZE = 10
-NUM_TRAINING_STEPS = 2051
+NUM_TRAINING_STEPS = 1200
 LEARNING_RATE = 0.01
 
-PATIENCE_1 = 10
-PATIENCE_2 = 10
-L2_CONST = 0.5  # Set to > 0 to use L2 regularization
-DROPOUT_RATE = 0.0  # Set to > 0 to use dropout
-POOL1 = False  # Set to True to add pooling after first conv layer
-POOL2 = False  # Set to True to add pooling after second conv layer
-POOL3 = False
-BN = False  # Set to True to use batch normalization
-FILTERS = 16
+L2_CONST = 0.0  # Set to > 0 to use L2 regularization
+DROPOUT_RATE = 0.5  # Set to > 0 to use dropout
+POOL1 = True  # Set to True to add pooling after first conv layer
+POOL2 = True  # Set to True to add pooling after second conv layer
+POOL3 = True
+POOL4 = True
+BN = True  # Set to True to use batch normalization
+FILTERS = 96
 
 class ArtistConvNet:
   def __init__(self, invariance=False):
@@ -76,17 +82,25 @@ class ArtistConvNet:
       if BN:
         conv2 = tf.layers.batch_normalization(inputs=conv2, axis=3, training=self.training)
 
-    #   conv3 = tf.layers.conv2d(inputs=conv2, filters=16, kernel_size=5, strides=2, padding="same", activation=tf.nn.relu)
-    #   if POOL3:
-    #     conv3 = tf.layers.max_pooling2d(inputs=conv2, pool_size=POOL2SIZE, strides=STRIDE2SIZE)
-    #   if BN:
-    #     conv3 = tf.layers.batch_normalization(inputs=conv2, axis=3, training=self.training)
+    #   conv3 = tf.layers.conv2d(inputs=conv2, filters=FILTERS, kernel_size=5, strides=1, padding="same", activation=tf.nn.relu)
 
-    #   conv4 = tf.layers.conv2d(inputs=conv3, filters=16, kernel_size=5, strides=2, padding="same", activation=tf.nn.relu)
+      conv3 = tf.layers.conv2d(inputs=conv2, filters=FILTERS, kernel_size=5, strides=2, padding="same", activation=tf.nn.relu)
+      if POOL3:
+        conv3 = tf.layers.max_pooling2d(inputs=conv3, pool_size=POOL3SIZE, strides=STRIDE3SIZE)
+      if BN:
+        conv3 = tf.layers.batch_normalization(inputs=conv3, axis=3, training=self.training)
+      #
+      conv4 = tf.layers.conv2d(inputs=conv3, filters=FILTERS, kernel_size=5, strides=2, padding="same", activation=tf.nn.relu)
+      if POOL4:
+        conv4 = tf.layers.max_pooling2d(inputs=conv4, pool_size=POOL4SIZE, strides=STRIDE4SIZE)
+      if BN:
+        conv4 = tf.layers.batch_normalization(inputs=conv4, axis=3, training=self.training)
+      #
+      conv5 = tf.layers.conv2d(inputs=conv4, filters=FILTERS, kernel_size=5, strides=2, padding="same", activation=tf.nn.relu)
+      if BN:
+        conv5 = tf.layers.batch_normalization(inputs=conv5, axis=3, training=self.training)
 
-    #   conv5 = tf.layers.conv2d(inputs=conv4, filters=16, kernel_size=5, strides=2, padding="same", activation=tf.nn.relu)
-
-      flat = tf.contrib.layers.flatten(inputs=conv2)
+      flat = tf.contrib.layers.flatten(inputs=conv4)
       flat = tf.layers.dropout(inputs=flat, rate=DROPOUT_RATE, training=self.training)
 
       fc1 = tf.layers.dense(inputs=flat, units=64, activation=tf.nn.relu, kernel_regularizer=regularizer)
@@ -121,16 +135,17 @@ class ArtistConvNet:
         # Data to feed into the placeholder variables in the tensorflow graph
         feed_dict = {self.images: batch_data, self.labels: batch_labels, self.training: True}
         _, l, acc = session.run([self.optimizer, self.loss, self.acc], feed_dict=feed_dict)
-        if (step == 2050):
+        # if (step % (NUM_TRAINING_STEPS-1) == 0):
+        if (step % 100 == 0):
           val_acc = session.run(self.acc, feed_dict={self.images: self.val_X, self.labels: self.val_Y, self.training: False})
           train_acc = session.run(self.acc, feed_dict={self.images: self.train_X, self.labels: self.train_Y, self.training: False})
           print('')
           print('Batch loss at step %d: %f' % (step, l))
           print('Batch training accuracy: %.1f%%' % acc)
           print('Full training accuracy: %.1f%%' % train_acc)
-        #   self.epochs.append(step)
-        #   self.training_accuracies.append(train_acc/100)
-        #   self.validation_accuracies.append(val_acc/100)
+          self.epochs.append(step)
+          self.training_accuracies.append(train_acc/100)
+          self.validation_accuracies.append(val_acc/100)
           print('Validation accuracy: %.1f%%' % val_acc)
           self.accuracy = (train_acc/100, val_acc/100)
 
@@ -216,19 +231,19 @@ class ArtistConvNet:
     #   stopping_3_ind = self.validation_accuracies.index(self.stopping_3[1])
       plt.plot(self.epochs, self.training_accuracies, label='train') #end(' + ("%.3f" % self.training_accuracies[-1]) + ')')
       plt.plot(self.epochs, self.validation_accuracies, label='validation max(' + ("%.3f" % max_val) + ')')
-      plt.plot(self.epochs, [self.stopping_1[2]]*len(self.epochs), label='stopping_1 end('+ ("%.3f" % self.stopping_1[2]) + ') epoch=' + str(self.stopping_1[0]), linestyle='--')
-      plt.plot(self.epochs, [self.stopping_2[2]]*len(self.epochs), label='stopping_2 end('+ ("%.3f" % self.stopping_2[2]) + ') epoch=' + str(self.stopping_2[0]), linestyle=':')
+    #   plt.plot(self.epochs, [self.stopping_1[2]]*len(self.epochs), label='stopping_1 end('+ ("%.3f" % self.stopping_1[2]) + ') epoch=' + str(self.stopping_1[0]), linestyle='--')
+    #   plt.plot(self.epochs, [self.stopping_2[2]]*len(self.epochs), label='stopping_2 end('+ ("%.3f" % self.stopping_2[2]) + ') epoch=' + str(self.stopping_2[0]), linestyle=':')
     #   plt.plot(self.epochs, [self.stopping_3[2]]*len(self.epochs), label='stopping_3 end('+ ("%.3f" % self.stopping_3[2]) + ') epoch=' + str(self.stopping_3[0]), linestyle='-.')
     #   plt.axvline(x=self.stopping_1[0], linewidth=1.0, linestyle='--')
     #   plt.axvline(x=self.stopping_2[0], linewidth=1.0, linestyle=':')
     #   plt.axvline(x=self.stopping_3[0], linewidth=1.0, linestyle='-.')
-      plt.plot(self.epochs, [max_val]*len(self.epochs))
+    #   plt.plot(self.epochs, [max_val]*len(self.epochs))
       x1,x2,y1,y2 = plt.axis()
       plt.axis=((x1, x2, 0, 1.0))
     #   plt.axis([0, NUM_TRAINING_STEPS-1, 0, 1.0])
       plt.xlabel('number of epochs')
       plt.ylabel('accuracy')
-      plt.title('Test and validation accuracy with Patience =' + str(PATIENCE_1))
+      plt.title('Test and validation accuracy')
       plt.legend(bbox_to_anchor=(0.5, 0.25), loc=0, borderaxespad=0.01, fontsize='small')
       plt.show()
 
@@ -253,28 +268,28 @@ if __name__ == '__main__':
     invariance = True
 
 
-#   filee = open(str(POOL1) + '_' + str(POOL2) + '.txt', "w")
-#   for stride in [1,2,3,4]:
-#       for f in [2,3,4,5]:
-#           STRIDE1SIZE = stride
-#           POOL1SIZE = f
-#           STRIDE2SIZE = stride
-#           POOL2SIZE = f
-#
-#           t1 = time.time()
-#           conv_net = ArtistConvNet(invariance=invariance)
-#           conv_net.train_model()
-#           t2 = time.time()
-#           filee.write('stride size = ' + str(stride) + ' filter size = ' + str(f) + ' validation_acc = ' + ("%.3f" % conv_net.accuracy[1]) + "\n")
-#           filee.write("Finished training. Total time taken: " + str(t2-t1) + "\n")
-#   # conv_net.plot_accuracy()
-#
-#           print('stride size = ', stride, ', pool size = ', f, ', validation_acc = ', conv_net.accuracy[1])
-#           print("Finished training. Total time taken:", t2-t1)
-#
-# filee.close()
+  # filee = open(str(POOL1) + '_' + str(POOL2) + '.txt', "w")
+  # for stride in [1,2,3,4]:
+  #     for f in [2,3,4,5]:
+  #         STRIDE1SIZE = stride
+  #         POOL1SIZE = f
+  #         STRIDE2SIZE = stride
+  #         POOL2SIZE = f
+  #
+  #         t1 = time.time()
+  #         conv_net = ArtistConvNet(invariance=invariance)
+  #         conv_net.train_model()
+  #         t2 = time.time()
+  #         filee.write('stride size = ' + str(stride) + ' filter size = ' + str(f) + ' validation_acc = ' + ("%.3f" % conv_net.accuracy[1]) + "\n")
+  #         filee.write("Finished training. Total time taken: " + str(t2-t1) + "\n")
+  # # conv_net.plot_accuracy()
+  #
+  #         print('stride size = ', stride, ', pool size = ', f, ', validation_acc = ', conv_net.accuracy[1])
+  #         print("Finished training. Total time taken:", t2-t1)
+  # filee.close()
   t1 = time.time()
   conv_net = ArtistConvNet(invariance=invariance)
   conv_net.train_model()
+  conv_net.plot_accuracy()
   t2 = time.time()
   print("Finished training. Total time taken:", t2-t1)

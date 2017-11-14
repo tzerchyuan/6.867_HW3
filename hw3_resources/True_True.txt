@@ -1,0 +1,264 @@
+stride size = (1, 1) filter size = (2, 2) validation_acc = 0.609
+Finished training. Total time taken: 63.54374885559082
+stride size = (1, 1) filter size = (2, 3) validation_acc = 0.667
+Finished training. Total time taken: 63.10076284408569
+stride size = (1, 1) filter size = (2, 4) validation_acc = 0.655
+Finished training. Total time taken: 63.901302099227905
+stride size = (1, 1) filter size = (2, 5) validation_acc = 0.667
+Finished training. Total time taken: 68.95543599128723
+stride size = (1, 1) filter size = (3, 2) validation_acc = 0.701
+Finished training. Total time taken: 73.03461027145386
+stride size = (1, 1) filter size = (3, 3) validation_acc = 0.644
+Finished training. Total time taken: 73.03238105773926
+stride size = (1, 1) filter size = (3, 4) validation_acc = 0.701
+Finished training. Total time taken: 79.870187997818
+stride size = (1, 1) filter size = (3, 5) validation_acc = 0.724
+Finished training. Total time taken: 70.6599428653717
+stride size = (1, 1) filter size = (4, 2) validation_acc = 0.644
+Finished training. Total time taken: 55.099276065826416
+stride size = (1, 1) filter size = (4, 3) validation_acc = 0.621
+Finished training. Total time taken: 63.24103808403015
+stride size = (1, 1) filter size = (4, 4) validation_acc = 0.655
+Finished training. Total time taken: 54.088618993759155
+stride size = (1, 1) filter size = (4, 5) validation_acc = 0.690
+Finished training. Total time taken: 43.7293918132782
+stride size = (1, 1) filter size = (5, 2) validation_acc = 0.609
+Finished training. Total time taken: 57.32722496986389
+stride size = (1, 1) filter size = (5, 3) validation_acc = 0.644
+Finished training. Total time taken: 59.754241943359375
+stride size = (1, 1) filter size = (5, 4) validation_acc = 0.621
+Finished training. Total time taken: 64.5031533241272
+stride size = (1, 1) filter size = (5, 5) validation_acc = 0.609
+Finished training. Total time taken: 65.48085236549377
+stride size = (1, 2) filter size = (2, 2) validation_acc = 0.690
+Finished training. Total time taken: 50.076194763183594
+stride size = (1, 2) filter size = (2, 3) validation_acc = 0.678
+Finished training. Total time taken: 49.40322256088257
+stride size = (1, 2) filter size = (2, 4) validation_acc = 0.701
+Finished training. Total time taken: 48.47867393493652
+stride size = (1, 2) filter size = (2, 5) validation_acc = 0.690
+Finished training. Total time taken: 51.51002502441406
+stride size = (1, 2) filter size = (3, 2) validation_acc = 0.667
+Finished training. Total time taken: 51.79144501686096
+stride size = (1, 2) filter size = (3, 3) validation_acc = 0.609
+Finished training. Total time taken: 52.077913761138916
+stride size = (1, 2) filter size = (3, 4) validation_acc = 0.678
+Finished training. Total time taken: 46.70424294471741
+stride size = (1, 2) filter size = (3, 5) validation_acc = 0.690
+Finished training. Total time taken: 49.01167702674866
+stride size = (1, 2) filter size = (4, 2) validation_acc = 0.690
+Finished training. Total time taken: 44.69157910346985
+stride size = (1, 2) filter size = (4, 3) validation_acc = 0.690
+Finished training. Total time taken: 60.39430594444275
+stride size = (1, 2) filter size = (4, 4) validation_acc = 0.621
+Finished training. Total time taken: 63.967692613601685
+stride size = (1, 2) filter size = (4, 5) validation_acc = 0.701
+Finished training. Total time taken: 61.43829607963562
+stride size = (1, 2) filter size = (5, 2) validation_acc = 0.667
+Finished training. Total time taken: 53.9031720161438
+stride size = (1, 2) filter size = (5, 3) validation_acc = 0.713
+Finished training. Total time taken: 59.447340965270996
+stride size = (1, 2) filter size = (5, 4) validation_acc = 0.713
+Finished training. Total time taken: 66.90320301055908
+stride size = (1, 2) filter size = (5, 5) validation_acc = 0.678
+Finished training. Total time taken: 59.63221788406372
+stride size = (1, 3) filter size = (2, 2) validation_acc = 0.632
+Finished training. Total time taken: 56.435696840286255
+stride size = (1, 3) filter size = (2, 3) validation_acc = 0.655
+Finished training. Total time taken: 47.97178030014038
+stride size = (1, 3) filter size = (2, 4) validation_acc = 0.644
+Finished training. Total time taken: 44.519298791885376
+stride size = (1, 3) filter size = (2, 5) validation_acc = 0.701
+Finished training. Total time taken: 73.7965030670166
+stride size = (1, 3) filter size = (3, 2) validation_acc = 0.678
+Finished training. Total time taken: 71.66675996780396
+stride size = (1, 3) filter size = (3, 3) validation_acc = 0.701
+Finished training. Total time taken: 44.708191871643066
+stride size = (1, 3) filter size = (3, 4) validation_acc = 0.655
+Finished training. Total time taken: 45.40708923339844
+stride size = (1, 3) filter size = (3, 5) validation_acc = 0.678
+Finished training. Total time taken: 45.01860499382019
+stride size = (1, 3) filter size = (4, 2) validation_acc = 0.644
+Finished training. Total time taken: 47.84471869468689
+stride size = (1, 3) filter size = (4, 3) validation_acc = 0.713
+Finished training. Total time taken: 52.84295415878296
+stride size = (1, 3) filter size = (4, 4) validation_acc = 0.678
+Finished training. Total time taken: 58.74460315704346
+stride size = (1, 3) filter size = (4, 5) validation_acc = 0.690
+Finished training. Total time taken: 54.99588418006897
+stride size = (1, 3) filter size = (5, 2) validation_acc = 0.632
+Finished training. Total time taken: 54.48116374015808
+stride size = (1, 3) filter size = (5, 3) validation_acc = 0.690
+Finished training. Total time taken: 64.92589902877808
+stride size = (1, 3) filter size = (5, 4) validation_acc = 0.759
+Finished training. Total time taken: 73.76512289047241
+stride size = (1, 3) filter size = (5, 5) validation_acc = 0.667
+Finished training. Total time taken: 53.378406047821045
+stride size = (1, 4) filter size = (2, 2) validation_acc = 0.586
+Finished training. Total time taken: 45.425090074539185
+stride size = (1, 4) filter size = (2, 3) validation_acc = 0.690
+Finished training. Total time taken: 41.34140586853027
+stride size = (1, 4) filter size = (2, 4) validation_acc = 0.713
+Finished training. Total time taken: 44.07240080833435
+stride size = (1, 4) filter size = (2, 5) validation_acc = 0.678
+Finished training. Total time taken: 42.151922941207886
+stride size = (1, 4) filter size = (3, 2) validation_acc = 0.655
+Finished training. Total time taken: 43.23373222351074
+stride size = (1, 4) filter size = (3, 3) validation_acc = 0.644
+Finished training. Total time taken: 46.6266872882843
+stride size = (1, 4) filter size = (3, 4) validation_acc = 0.678
+Finished training. Total time taken: 48.27611517906189
+stride size = (1, 4) filter size = (3, 5) validation_acc = 0.621
+Finished training. Total time taken: 54.349711179733276
+stride size = (1, 4) filter size = (4, 2) validation_acc = 0.655
+Finished training. Total time taken: 50.28869676589966
+stride size = (1, 4) filter size = (4, 3) validation_acc = 0.632
+Finished training. Total time taken: 42.22089099884033
+stride size = (1, 4) filter size = (4, 4) validation_acc = 0.736
+Finished training. Total time taken: 48.131645917892456
+stride size = (1, 4) filter size = (4, 5) validation_acc = 0.667
+Finished training. Total time taken: 66.93211197853088
+stride size = (1, 4) filter size = (5, 2) validation_acc = 0.644
+Finished training. Total time taken: 79.9434380531311
+stride size = (1, 4) filter size = (5, 3) validation_acc = 0.690
+Finished training. Total time taken: 95.62235617637634
+stride size = (1, 4) filter size = (5, 4) validation_acc = 0.678
+Finished training. Total time taken: 91.34753704071045
+stride size = (1, 4) filter size = (5, 5) validation_acc = 0.609
+Finished training. Total time taken: 86.69330310821533
+--------------------------------------------------
+stride size = (2, 1) filter size = (2, 2) validation_acc = 0.667
+Finished training. Total time taken: 68.7492880821228
+stride size = (2, 1) filter size = (2, 3) validation_acc = 0.678
+Finished training. Total time taken: 40.900656938552856
+stride size = (2, 1) filter size = (2, 4) validation_acc = 0.644
+Finished training. Total time taken: 34.214194774627686
+stride size = (2, 1) filter size = (2, 5) validation_acc = 0.598
+Finished training. Total time taken: 49.258888959884644
+stride size = (2, 1) filter size = (3, 2) validation_acc = 0.655
+Finished training. Total time taken: 37.0482439994812
+stride size = (2, 1) filter size = (3, 3) validation_acc = 0.747
+Finished training. Total time taken: 46.18118715286255
+stride size = (2, 1) filter size = (3, 4) validation_acc = 0.655
+Finished training. Total time taken: 35.19501996040344
+stride size = (2, 1) filter size = (3, 5) validation_acc = 0.690
+Finished training. Total time taken: 28.545395135879517
+stride size = (2, 1) filter size = (4, 2) validation_acc = 0.690
+Finished training. Total time taken: 34.02083396911621
+stride size = (2, 1) filter size = (4, 3) validation_acc = 0.644
+Finished training. Total time taken: 37.95135188102722
+stride size = (2, 1) filter size = (4, 4) validation_acc = 0.678
+Finished training. Total time taken: 42.5403151512146
+stride size = (2, 1) filter size = (4, 5) validation_acc = 0.667
+Finished training. Total time taken: 40.315643072128296
+stride size = (2, 1) filter size = (5, 2) validation_acc = 0.609
+Finished training. Total time taken: 37.45828104019165
+stride size = (2, 1) filter size = (5, 3) validation_acc = 0.713
+Finished training. Total time taken: 30.350299835205078
+stride size = (2, 1) filter size = (5, 4) validation_acc = 0.770
+Finished training. Total time taken: 29.400157928466797
+stride size = (2, 1) filter size = (5, 5) validation_acc = 0.713
+Finished training. Total time taken: 30.082342863082886
+stride size = (2, 2) filter size = (2, 2) validation_acc = 0.724
+Finished training. Total time taken: 27.818567991256714
+stride size = (2, 2) filter size = (2, 3) validation_acc = 0.609
+Finished training. Total time taken: 37.78039908409119
+stride size = (2, 2) filter size = (2, 4) validation_acc = 0.632
+Finished training. Total time taken: 41.760900020599365
+stride size = (2, 2) filter size = (2, 5) validation_acc = 0.644
+Finished training. Total time taken: 33.77916693687439
+stride size = (2, 2) filter size = (3, 2) validation_acc = 0.701
+Finished training. Total time taken: 41.988778829574585
+stride size = (2, 2) filter size = (3, 3) validation_acc = 0.701
+Finished training. Total time taken: 31.433616161346436
+stride size = (2, 2) filter size = (3, 4) validation_acc = 0.667
+Finished training. Total time taken: 42.45551419258118
+stride size = (2, 2) filter size = (3, 5) validation_acc = 0.609
+Finished training. Total time taken: 38.291457176208496
+stride size = (2, 2) filter size = (4, 2) validation_acc = 0.621
+Finished training. Total time taken: 32.86324405670166
+stride size = (2, 2) filter size = (4, 3) validation_acc = 0.690
+Finished training. Total time taken: 41.8759388923645
+stride size = (2, 2) filter size = (4, 4) validation_acc = 0.644
+Finished training. Total time taken: 36.955068826675415
+stride size = (2, 2) filter size = (4, 5) validation_acc = 0.609
+Finished training. Total time taken: 34.97676205635071
+stride size = (2, 2) filter size = (5, 2) validation_acc = 0.678
+Finished training. Total time taken: 41.22520112991333
+stride size = (2, 2) filter size = (5, 3) validation_acc = 0.655
+Finished training. Total time taken: 34.08824706077576
+stride size = (2, 2) filter size = (5, 4) validation_acc = 0.713
+Finished training. Total time taken: 43.22116184234619
+stride size = (2, 2) filter size = (5, 5) validation_acc = 0.678
+Finished training. Total time taken: 43.83066415786743
+stride size = (2, 3) filter size = (2, 2) validation_acc = 0.632
+Finished training. Total time taken: 42.83414602279663
+stride size = (2, 3) filter size = (2, 3) validation_acc = 0.621
+Finished training. Total time taken: 41.73348140716553
+stride size = (2, 3) filter size = (2, 4) validation_acc = 0.690
+Finished training. Total time taken: 39.645357847213745
+stride size = (2, 3) filter size = (2, 5) validation_acc = 0.655
+Finished training. Total time taken: 29.05862307548523
+stride size = (2, 3) filter size = (3, 2) validation_acc = 0.701
+Finished training. Total time taken: 43.8072988986969
+stride size = (2, 3) filter size = (3, 3) validation_acc = 0.621
+Finished training. Total time taken: 35.67382311820984
+stride size = (2, 3) filter size = (3, 4) validation_acc = 0.690
+Finished training. Total time taken: 32.084259033203125
+stride size = (2, 3) filter size = (3, 5) validation_acc = 0.598
+Finished training. Total time taken: 37.03775906562805
+stride size = (2, 3) filter size = (4, 2) validation_acc = 0.655
+Finished training. Total time taken: 49.98591208457947
+stride size = (2, 3) filter size = (4, 3) validation_acc = 0.678
+Finished training. Total time taken: 32.46417474746704
+stride size = (2, 3) filter size = (4, 4) validation_acc = 0.655
+Finished training. Total time taken: 32.60713601112366
+stride size = (2, 3) filter size = (4, 5) validation_acc = 0.609
+Finished training. Total time taken: 36.84346580505371
+stride size = (2, 3) filter size = (5, 2) validation_acc = 0.667
+Finished training. Total time taken: 31.479270935058594
+stride size = (2, 3) filter size = (5, 3) validation_acc = 0.701
+Finished training. Total time taken: 40.31117105484009
+stride size = (2, 3) filter size = (5, 4) validation_acc = 0.667
+Finished training. Total time taken: 38.90559792518616
+stride size = (2, 3) filter size = (5, 5) validation_acc = 0.655
+Finished training. Total time taken: 53.16800403594971
+stride size = (2, 4) filter size = (2, 2) validation_acc = 0.644
+Finished training. Total time taken: 56.443670988082886
+stride size = (2, 4) filter size = (2, 3) validation_acc = 0.552
+Finished training. Total time taken: 50.68158006668091
+stride size = (2, 4) filter size = (2, 4) validation_acc = 0.655
+Finished training. Total time taken: 55.29100584983826
+stride size = (2, 4) filter size = (2, 5) validation_acc = 0.609
+Finished training. Total time taken: 64.36226916313171
+stride size = (2, 4) filter size = (3, 2) validation_acc = 0.667
+Finished training. Total time taken: 40.64573383331299
+stride size = (2, 4) filter size = (3, 3) validation_acc = 0.552
+Finished training. Total time taken: 48.39601397514343
+stride size = (2, 4) filter size = (3, 4) validation_acc = 0.632
+Finished training. Total time taken: 37.17356085777283
+stride size = (2, 4) filter size = (3, 5) validation_acc = 0.667
+Finished training. Total time taken: 31.597298860549927
+stride size = (2, 4) filter size = (4, 2) validation_acc = 0.667
+Finished training. Total time taken: 53.064422845840454
+stride size = (2, 4) filter size = (4, 3) validation_acc = 0.655
+Finished training. Total time taken: 38.40610098838806
+stride size = (2, 4) filter size = (4, 4) validation_acc = 0.667
+Finished training. Total time taken: 45.75478911399841
+stride size = (2, 4) filter size = (4, 5) validation_acc = 0.667
+Finished training. Total time taken: 36.68026685714722
+stride size = (2, 4) filter size = (5, 2) validation_acc = 0.609
+Finished training. Total time taken: 41.584359884262085
+stride size = (2, 4) filter size = (5, 3) validation_acc = 0.632
+Finished training. Total time taken: 43.928653717041016
+stride size = (2, 4) filter size = (5, 4) validation_acc = 0.655
+Finished training. Total time taken: 48.287009954452515
+stride size = (2, 4) filter size = (5, 5) validation_acc = 0.540
+Finished training. Total time taken: 43.422096252441406
+--------------------------------------------------
+stride size = (3, 1) filter size = (2, 2) validation_acc = 0.701
+Finished training. Total time taken: 46.63351774215698
+stride size = (3, 1) filter size = (2, 3) validation_acc = 0.655
+Finished training. Total time taken: 41.37546896934509
+stride size = (3, 1) filter size = (2, 4) validation_acc = 0.552
+Finished training. Total time taken: 63.27216839790344
