@@ -17,9 +17,9 @@ def relu_prime(a):
 #     return a
 
 def softmax(x):
-    minus_max = x - np.max(x)
-    print(minus_max)
-    e = np.exp(minus_max)
+    for i in range(len(x)):
+        x[i] = x[i] - np.max(x[i])
+    e = np.exp(x)
     if e.ndim == 1:
         return e / np.sum(e, axis=0)
     else: # dim = 2
@@ -40,7 +40,7 @@ class NeuralNetwork(object):
         self.sizes = sizes
         # self.biases = [np.random.randn(y, 1) for y in sizes[1:]]
         self.biases = [np.zeros(y) for y in sizes[1:]]
-        self.weights = [np.random.normal(0, 0.035355, (x, y)) for x, y in zip(sizes[:-1], sizes[1:])]
+        self.weights = [np.random.normal(0, 0.5, (x, y)) for x, y in zip(sizes[:-1], sizes[1:])]
 
     def feedforward(self, a):
         'return output of network if input is a'
@@ -67,11 +67,10 @@ class NeuralNetwork(object):
         for l in range(self.num_layers-1):
             temp_input = np.dot(temp_input, self.weights[l]) + self.biases[l]
             z_s.append(temp_input)
-            if l != self.num_layers-2:
-                # do relu except for last layer
-                temp_input = relu(temp_input)
-                a_s.append(temp_input)
-        a_s.append(relu(temp_input))
+            temp_input = relu(temp_input)
+            print(temp_input, 'weights layer' , l+2)
+            a_s.append(temp_input)
+
         temp_input = np.array(temp_input)
         output = softmax(temp_input)
 
@@ -86,9 +85,12 @@ class NeuralNetwork(object):
 
         # output layer loss
         delta = output -  Y# change this
-        delta = np.array(delta)
+        # delta = np.array(delta)
+        # print('activcations-- > ', a_s)
+        print('delta---->', delta)
         nabla_w[-1] = np.mat(a_s[-2]).T * delta
         nabla_b[-1] = np.sum(delta, axis=0)
+        # print(nabla_b[-1])
 
         # compute d and delta_w for the rest of the layers and backprop
         for l in xrange(2, self.num_layers):
@@ -113,10 +115,16 @@ class NeuralNetwork(object):
     #             self.weights = [x - learning_rate*y for x, y in zip(self.weights, nabla_w)]
     #             self.biases = [x - learning_rate*y for x, y in zip(self.biases, nabla_b)]
         for e in range(epoch):
-            print('EPOCH #', e)
+
             nabla_w, nabla_b = self.backprop(X, Y)
             self.weights = [x - learning_rate*y for x, y in zip(self.weights, nabla_w)]
             self.biases = [x - learning_rate*y for x, y in zip(self.biases, nabla_b)]
+            if e%100 == 0:
+                print('EPOCH #', e)
+                loss = 0
+                for i in range(len(X)):
+                    loss += -np.log10(self.feedforward(X[i])[0][int(Y[i])])
+                print('neural network loss---->', loss)
 
     # def train(self, learning_rate, epoch, X, Y):
     #     '''
@@ -129,25 +137,19 @@ class NeuralNetwork(object):
     #             self.weights = [x - learning_rate*y for x, y in zip(self.weights, nabla_w)]
     #             self.biases = [x - learning_rate*y for x, y in zip(self.biases, nabla_b)]
     #                 # calculate loss
-    #         if e%100 == 0:
-    #             loss = 0
-    #             for i in range(len(X)):
-    #                 loss += -np.log10(self.feedforward(X[i])[0][int(Y[i])])
-    #             print('neural network loss---->', loss)
+    #
 
 
-nn = NeuralNetwork([2, 10, 3], 3)
+nn = NeuralNetwork([2, 3, 3], 3)
 # print(nn.weights)
 # print(nn.biases)
 # nn.train(2, 1, [np.array([1, 1])], [2])
 # nn.backprop(np.array([[1,1],[2,2]]), Y)
 # print(nn.feedforward(np.array([1, 1])))
 
-print(softmax([[1,2], [2,5]]))
-sad
 train = np.loadtxt('data/data_3class.csv')
-X = np.array(train[:,0:2])
-Y = train[:,2:3]
+X = np.array(train[:2,0:2])
+Y = train[:2,2:3]
 nn.train(0.001,1000, X, Y)
 result = nn.feedforward(X)
 print(result)
@@ -155,4 +157,4 @@ end = np.zeros(len(X))
 for i in range(len(result)):
     end[i] = result[i].argmax()
 print(end.T)
-print(Y[0:20])
+print(Y)
