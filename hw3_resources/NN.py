@@ -10,6 +10,14 @@ def relu_prime(a):
     'returns relu prime'
     return np.maximum(0, a)
 
+def relu_prime2(a):
+    'returns relu prime'
+    # print("########################################################")
+    # print(a.shape)
+    # print("########################################################")
+
+    return np.array([1 if a[i] > 0 else 0 for i in range(a.shape[0])])
+
 # def softmax(a):
 #     # print('exp--->', a)
 #     for i in range(len(a)):
@@ -64,11 +72,12 @@ class NeuralNetwork(object):
         z_s = []
         a_s = [x]
         temp_input = x
+        # print("TI:", temp_input)
         for l in range(self.num_layers-1):
-            temp_input = np.dot(temp_input, self.weights[l]) + self.biases[l]
+            temp_input = np.dot(self.weights[l].T, temp_input.T) + self.biases[l]
             z_s.append(temp_input)
             temp_input = relu(temp_input)
-            print(temp_input, 'weights layer' , l+2)
+            # print(temp_input, 'weights layer' , l+2)
             a_s.append(temp_input)
 
         temp_input = np.array(temp_input)
@@ -87,57 +96,95 @@ class NeuralNetwork(object):
         delta = output -  Y# change this
         # delta = np.array(delta)
         # print('activcations-- > ', a_s)
-        print('delta---->', delta)
-        nabla_w[-1] = np.mat(a_s[-2]).T * delta
-        nabla_b[-1] = np.sum(delta, axis=0)
+        # print('delta---->', delta)
+
+        # nabla_w[-1] = np.mat(a_s[-2]).T * delta
+        # nabla_b[-1] = np.sum(delta, axis=0)
+
+        nabla_w[-l] = np.outer(a_s[-2], delta)
+        nabla_b[-l] = delta
         # print(nabla_b[-1])
 
         # compute d and delta_w for the rest of the layers and backprop
-        for l in xrange(2, self.num_layers):
-            part = delta * np.mat(self.weights[-l+1]).T
-            delta = relu_prime(part)
-            nabla_w[-l] = np.mat(a_s[-l-1]).T * delta
-            nabla_b[-l] = np.sum(delta, axis=0)
+        # for l in xrange(2, self.num_layers):
+        #     part = delta * np.mat(self.weights[-l+1]).T
+        #     delta = relu_prime(part)
+        #     nabla_w[-l] = np.mat(a_s[-l-1]).T * delta
+        #     nabla_b[-l] = np.sum(delta, axis=0)
 
+        for l in xrange(2, self.num_layers):
+            # part = np.dot(delta, np.mat(self.weights[-l+1]).T)
+            # print("Z:", z_s)
+            D = np.diag(relu_prime2(z_s[-l]))
+
+            # print(D)
+            # delta = relu_prime(part)
+            W = self.weights[-l+1]
+            # print("W:", W)
+            # print(delta, delta.shape)
+            delta = delta.reshape((delta.shape[1],))
+            # print(delta, delta.shape)
+            # asd
+            # print(delta)
+            delta = np.dot(np.dot(D, W), delta)
+            # print("w4tqet")
+            # print(delta)
+            # asd
+            # print("A:", a_s)
+            nabla_w[-l] = np.outer(a_s[-l - 1], delta)
+            nabla_b[-l] = delta
+            # print("NW:", nabla_w[-l])
+            # asd
+            # nabla_w[-l] = np.dot(np.mat(a_s[-l-1]).T,delta)
+            # nabla_b[-l] = np.sum(delta, axis=0)
 
         # print(nabla_w)
         # print(nabla_b)
         return (nabla_w, nabla_b)
 
-    def train(self, learning_rate, epoch, X, Y):
-    #     '''
-    #         performs SGD to train model
-    #     '''
+    # def train(self, learning_rate, epoch, X, Y):
+    # #     '''
+    # #         performs SGD to train model
+    # #     '''
+    # #     for e in range(epoch):
+    # #         for i in range(len(X)):
+    # #             nabla_w, nabla_b = self.backprop(X[i], Y[i])
+    # #             # update all the weights
+    # #             self.weights = [x - learning_rate*y for x, y in zip(self.weights, nabla_w)]
+    # #             self.biases = [x - learning_rate*y for x, y in zip(self.biases, nabla_b)]
     #     for e in range(epoch):
-    #         for i in range(len(X)):
-    #             nabla_w, nabla_b = self.backprop(X[i], Y[i])
-    #             # update all the weights
-    #             self.weights = [x - learning_rate*y for x, y in zip(self.weights, nabla_w)]
-    #             self.biases = [x - learning_rate*y for x, y in zip(self.biases, nabla_b)]
-        for e in range(epoch):
+    #
+    #         nabla_w, nabla_b = self.backprop(X, Y)
+    #         self.weights = [x - learning_rate*y for x, y in zip(self.weights, nabla_w)]
+    #         self.biases = [x - learning_rate*y for x, y in zip(self.biases, nabla_b)]
+    #         if e%100 == 0:
+    #             print('EPOCH #', e)
+    #             loss = 0
+    #             for i in range(len(X)):
+    #                 loss += -np.log10(self.feedforward(X[i])[0][int(Y[i])])
+    #             print('neural network loss---->', loss)
 
-            nabla_w, nabla_b = self.backprop(X, Y)
-            self.weights = [x - learning_rate*y for x, y in zip(self.weights, nabla_w)]
-            self.biases = [x - learning_rate*y for x, y in zip(self.biases, nabla_b)]
-            if e%100 == 0:
+    def train(self, learning_rate, epoch, X, Y):
+        '''
+            performs SGD to train model
+        '''
+        for e in range(epoch):
+            for i in range(len(X)):
+                nabla_w, nabla_b = self.backprop(X[i], Y[i])
+                # print("X:", X[i])
+                # print("Y:", Y[i])
+                # update all the weights
+                self.weights = [x - learning_rate*y for x, y in zip(self.weights, nabla_w)]
+                self.biases = [x - learning_rate*y for x, y in zip(self.biases, nabla_b)]
+                # print(self.weights)
+                    # calculate loss
+            if e%1000 == 0:
                 print('EPOCH #', e)
                 loss = 0
                 for i in range(len(X)):
                     loss += -np.log10(self.feedforward(X[i])[0][int(Y[i])])
                 print('neural network loss---->', loss)
 
-    # def train(self, learning_rate, epoch, X, Y):
-    #     '''
-    #         performs SGD to train model
-    #     '''
-    #     for e in range(epoch):
-    #         for i in range(len(X)):
-    #             nabla_w, nabla_b = self.backprop(X[i], Y[i])
-    #             # update all the weights
-    #             self.weights = [x - learning_rate*y for x, y in zip(self.weights, nabla_w)]
-    #             self.biases = [x - learning_rate*y for x, y in zip(self.biases, nabla_b)]
-    #                 # calculate loss
-    #
 
 
 nn = NeuralNetwork([2, 3, 3], 3)
@@ -148,13 +195,18 @@ nn = NeuralNetwork([2, 3, 3], 3)
 # print(nn.feedforward(np.array([1, 1])))
 
 train = np.loadtxt('data/data_3class.csv')
-X = np.array(train[:2,0:2])
-Y = train[:2,2:3]
-nn.train(0.001,1000, X, Y)
+X = np.array(train[:,0:2])
+Y = train[:,2:3]
+nn.train(0.001,8000, X, Y)
 result = nn.feedforward(X)
 print(result)
 end = np.zeros(len(X))
 for i in range(len(result)):
     end[i] = result[i].argmax()
-print(end.T)
-print(Y)
+# print(end.T)
+# print(Y)
+
+Y2 = Y.reshape(Y.shape[0])
+print("HERE")
+# print(Y2-end)
+print("ERROR:", np.sum(np.absolute(Y2-end)))
