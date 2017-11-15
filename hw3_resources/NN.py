@@ -48,7 +48,7 @@ class NeuralNetwork(object):
         self.sizes = sizes
         # self.biases = [np.random.randn(y, 1) for y in sizes[1:]]
         self.biases = [np.zeros(y) for y in sizes[1:]]
-        self.weights = [np.random.normal(0, 0.5, (x, y)) for x, y in zip(sizes[:-1], sizes[1:])]
+        self.weights = [np.random.normal(0, 1.0/y, (x, y)) for x, y in zip(sizes[:-1], sizes[1:])]
 
     def feedforward(self, a):
         'return output of network if input is a'
@@ -178,35 +178,56 @@ class NeuralNetwork(object):
                 self.biases = [x - learning_rate*y for x, y in zip(self.biases, nabla_b)]
                 # print(self.weights)
                     # calculate loss
-            if e%1000 == 0:
+            if e%100 == 0:
+                print(self.weights)
                 print('EPOCH #', e)
                 loss = 0
                 for i in range(len(X)):
                     loss += -np.log10(self.feedforward(X[i])[0][int(Y[i])])
                 print('neural network loss---->', loss)
 
+    def predict(self, X, Y):
+        result = self.feedforward(X)
+        end = np.zeros(len(X))
+        for i in range(len(result)):
+            end[i] = result[i].argmax()
+        Y2 = Y.reshape(Y.shape[0])
+        print('__________________________________')
+        # print(Y2-end)
+        print("ERROR:", np.sum(np.absolute(Y2-end)))
+        return np.sum(np.absolute(Y2-end))
 
 
-nn = NeuralNetwork([2, 3, 3], 3)
+nn = NeuralNetwork([2, 10, 2], 2)
 # print(nn.weights)
 # print(nn.biases)
 # nn.train(2, 1, [np.array([1, 1])], [2])
 # nn.backprop(np.array([[1,1],[2,2]]), Y)
 # print(nn.feedforward(np.array([1, 1])))
 
-train = np.loadtxt('data/data_3class.csv')
-X = np.array(train[:,0:2])
-Y = train[:,2:3]
-nn.train(0.001,8000, X, Y)
-result = nn.feedforward(X)
-print(result)
-end = np.zeros(len(X))
-for i in range(len(result)):
-    end[i] = result[i].argmax()
-# print(end.T)
-# print(Y)
+train = np.loadtxt('../../hw2_resources/data/data4_train.csv')
+validate = np.loadtxt('../../hw2_resources/data/data4_validate.csv')
+test = np.loadtxt('../../hw2_resources/data/data4_test.csv')
 
-Y2 = Y.reshape(Y.shape[0])
-print("HERE")
-# print(Y2-end)
-print("ERROR:", np.sum(np.absolute(Y2-end)))
+X_train = np.array(train[:,0:2])
+Y_train = train[:,2:3]
+Y_train = relu(Y_train)
+
+X_validate = np.array(validate[:,0:2])
+Y_validate = relu(validate[:,2:3])
+
+X_test = np.array(test[:,0:2])
+Y_test = relu(np.array(test[:,2:3]))
+
+nn.train(0.001,500, X_train, Y_train)
+
+print('----------------training---------------')
+miss_train = nn.predict(X_train, Y_train)
+print('train accuracy--> ', str((len(X_train)- miss_train)/len(X_train)))
+
+print('----------------validate---------------')
+nn.predict(X_validate, Y_validate)
+
+print('----------------test---------------')
+miss = nn.predict(X_test, Y_test)
+print('test_error--->', str((len(X_test)- miss)/len(X_test)))
